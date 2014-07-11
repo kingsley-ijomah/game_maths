@@ -3,11 +3,13 @@ require 'gosu'
 Dir["./lib/*.rb"].each {|file| require file }
 
 class Ball
-	attr_accessor :x, :y
+	attr_accessor :x, :y, :w, :h
 
 	def initialize(window, x, y)
 		@x = x
 		@y = y
+		@w = 140
+		@h = 140
 		@image = Gosu::Image.new(window, './img/ball.png', false)
 	end
 
@@ -24,17 +26,17 @@ class GameWindow < Gosu::Window
 		@height = 600
 
 		@vx = 0
-		@ax = 0.1
+		@easing = 0.1
+		@targetX = @width - 140
 
 		super @width, @height, false
 		self.caption = 'Maths Game'
-		@ball = Ball.new(self, 100, 200)
+		@ball = Ball.new(self, 1, 200)
 	end
 
 	def update
-		@vx += @ax
+		@vx = (@targetX - @ball.x) * @easing
 		@ball.x += @vx
-		puts @vx
 	end
 
 	def draw
