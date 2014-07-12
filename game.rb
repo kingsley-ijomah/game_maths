@@ -28,6 +28,7 @@ class GameWindow < Gosu::Window
 		@vx = 0
 		@spring = 0.1
 		@targetX = 700
+		@friction = 0.95
 
 		super @width, @height, false
 		self.caption = 'Maths Game'
@@ -38,6 +39,7 @@ class GameWindow < Gosu::Window
 		dx = @targetX - @ball.x
 		ax = dx * @spring
 		@vx += ax
+		@vx *= @friction
 		@ball.x += @vx
 	end
 
