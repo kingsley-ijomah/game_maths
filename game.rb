@@ -26,8 +26,8 @@ class GameWindow < Gosu::Window
 		@height = 600
 
 		@vx = 0
-		@easing = 0.1
-		@targetX = @width - 140
+		@spring = 0.1
+		@targetX = 700
 
 		super @width, @height, false
 		self.caption = 'Maths Game'
@@ -35,7 +35,9 @@ class GameWindow < Gosu::Window
 	end
 
 	def update
-		@vx = (@targetX - @ball.x) * @easing
+		dx = @targetX - @ball.x
+		ax = dx * @spring
+		@vx += ax
 		@ball.x += @vx
 	end
 
